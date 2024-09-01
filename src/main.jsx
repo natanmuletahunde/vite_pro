@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './TodoApp';
 import './index.css'; // Optional: If you want to add styles
+import TodoApp from './TodoApp.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <TodoApp />
   </React.StrictMode>
 );
