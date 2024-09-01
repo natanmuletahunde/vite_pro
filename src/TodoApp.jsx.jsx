@@ -7,12 +7,15 @@ const TodoApp = () => {
     const [img, setImg] = useState(null);
     const [description, setDescription] = useState('');
 
+    // Fetch todos from the backend
     useEffect(() => {
         fetch('/todos')
             .then(response => response.json())
-            .then(data => setTodos(data));
+            .then(data => setTodos(data))
+            .catch(error => console.error('Error fetching todos:', error));
     }, []);
 
+    // Function to add a new todo
     const addTodo = () => {
         const formData = new FormData();
         formData.append('name', name);
@@ -23,21 +26,21 @@ const TodoApp = () => {
             method: 'POST',
             body: formData,
         })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                setTodos([...todos, data]);
-                setName('');
-                setImg(null);
-                setDescription('');
-            })
-            .catch(error => {
-                console.error('There was a problem with the fetch operation:', error);
-            });
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            setTodos([...todos, data]);
+            setName('');
+            setImg(null);
+            setDescription('');
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
     };
 
     return (
